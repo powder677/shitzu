@@ -1,0 +1,346 @@
+import React, { useState, useEffect } from 'react';
+import { TrendingUp, TrendingDown, Dog, Calendar, Trophy, Award, BarChart3, Users, Clock, Target } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+
+const App = () => {
+const [selectedMonth, setSelectedMonth] = useState('May 2024');
+
+// Mock data for performance comparison
+const performanceData = [
+{ month: 'Jan', barkfolio: 12, sp500: 8 },
+{ month: 'Feb', barkfolio: -3, sp500: 2 },
+{ month: 'Mar', barkfolio: 18, sp500: 5 },
+{ month: 'Apr', barkfolio: 25, sp500: 12 },
+{ month: 'May', barkfolio: 32, sp500: 15 }
+];
+
+const stockPicks = [
+{ symbol: '$NVDA', name: 'NVIDIA', pickDate: '2024-01-15', performance: 185, reason: 'Bounced highest during playtime' },
+{ symbol: '$TSLA', name: 'Tesla', pickDate: '2024-02-20', performance: 42, reason: 'Red ball caught attention' },
+{ symbol: '$AMD', name: 'AMD', pickDate: '2024-03-10', performance: 78, reason: 'Rolling ball pattern' },
+{ symbol: '$NFLX', name: 'Netflix', pickDate: '2024-04-05', performance: -12, reason: 'Less bouncy ball' }
+];
+
+const monthlyReports = [
+{
+month: 'May 2024',
+barkfolioReturn: '+32%',
+sp500Return: '+15%',
+topPick: '$NVDA',
+highlight: 'Barkvented into AI chip sector'
+},
+{
+month: 'April 2024',
+barkfolioReturn: '+25%',
+sp500Return: '+12%',
+topPick: '$TSLA',
+highlight: 'Electric tail wags all month'
+}
+];
+
+return (
+<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+   {/* Header */}
+   <header className="bg-white shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+         <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+               <div className="bg-gradient-to-r from-orange-400 to-pink-500 p-3 rounded-full">
+                  <Dog className="h-8 w-8 text-white" />
+               </div>
+               <div>
+                  <h1 className="text-3xl font-bold text-gray-900">My Shih Tzu Beat the S&P</h1>
+                  <p className="text-gray-600">Where tennis balls meet ticker symbols</p>
+               </div>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+               <div className="text-right">
+                  <p className="text-sm text-gray-500">Barkfolio Performance</p>
+                  <p className="text-2xl font-bold text-green-600">+32%</p>
+               </div>
+               <div className="text-right">
+                  <p className="text-sm text-gray-500">S&P 500</p>
+                  <p className="text-2xl font-bold text-blue-600">+15%</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </header>
+
+   {/* Hero Section */}
+   <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+               <h2 className="text-5xl font-bold text-gray-900 mb-6">
+                  When <span className="text-orange-500">Bark</span> Meets <span className="text-blue-600">Bull</span>
+               </h2>
+               <p className="text-xl text-gray-600 mb-8">
+                  Meet Charlie, my Shih Tzu who's been outperforming Wall Street with nothing but his nose for tennis balls and instinct for winning stocks.
+               </p>
+               <div className="flex flex-wrap gap-4">
+                  <button className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all">
+                     View Latest Picks
+                  </button>
+                  <button className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-semibold hover:border-orange-500 hover:text-orange-500 transition-all">
+                     Investment Strategy
+                  </button>
+               </div>
+            </div>
+            <div className="relative">
+               <div className="bg-white rounded-2xl shadow-2xl p-8">
+                  <div className="flex items-center justify-between mb-6">
+                     <h3 className="text-2xl font-bold text-gray-900">Performance vs S&P 500</h3>
+                     <Trophy className="h-8 w-8 text-yellow-500" />
+                  </div>
+                  <div className="h-64">
+                     <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={performanceData}>
+                           <CartesianGrid strokeDasharray="3 3" />
+                           <XAxis dataKey="month" />
+                           <YAxis />
+                           <Tooltip />
+                           <Line type="monotone" dataKey="barkfolio" stroke="#f97316" strokeWidth={3} name="Barkfolio" />
+                           <Line type="monotone" dataKey="sp500" stroke="#3b82f6" strokeWidth={3} name="S&P 500" />
+                        </LineChart>
+                     </ResponsiveContainer>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   {/* Weekly Barkvestment Reports */}
+   <section className="py-16 bg-white px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+               <BarChart3 className="h-8 w-8 text-blue-600 mr-3" />
+               <h2 className="text-4xl font-bold text-gray-900">Weekly Barkvestment Reports</h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+               Charlie's monthly breakdown of how his tennis ball strategy outperformed traditional investing methods
+            </p>
+         </div>
+
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {monthlyReports.map((report, index) => (
+            <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 hover:shadow-xl transition-all">
+               <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-gray-900">{report.month}</h3>
+                  <Calendar className="h-5 w-5 text-gray-500" />
+               </div>
+               <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                     <span className="text-gray-600">Barkfolio Return</span>
+                     <span className="font-bold text-green-600 text-lg">{report.barkfolioReturn}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                     <span className="text-gray-600">S&P 500 Return</span>
+                     <span className="font-bold text-blue-600 text-lg">{report.sp500Return}</span>
+                  </div>
+                  <div className="pt-4 border-t">
+                     <p className="text-sm text-gray-600 mb-2">Top Pick: <span className="font-semibold text-orange-600">{report.topPick}</span></p>
+                     <p className="text-sm text-gray-700 italic">"{report.highlight}"</p>
+                  </div>
+               </div>
+            </div>
+            ))}
+         </div>
+      </div>
+   </section>
+
+   {/* How He Picked Nvidia Over Netflix */}
+   <section className="py-16 bg-gradient-to-r from-orange-50 to-pink-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+               <Target className="h-8 w-8 text-orange-500 mr-3" />
+               <h2 className="text-4xl font-bold text-gray-900">How He Picked Nvidia Over Netflix</h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+               The science behind Charlie's winning strategy and why he chose the red ball over the blue one
+            </p>
+         </div>
+
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+               <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">The Tennis Ball Theory</h3>
+                  <p className="text-gray-600 mb-6">
+                     Charlie's method is surprisingly sophisticated. Each morning, he's presented with tennis balls labeled with stock symbols.
+                     His choices aren't random - they're based on the ball's bounce, color, and texture, which somehow correlate with market momentum.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                     <div className="text-center p-4 bg-orange-50 rounded-lg">
+                        <div className="text-2xl font-bold text-orange-600">$NVDA</div>
+                        <div className="text-sm text-gray-600">Red Ball</div>
+                        <div className="text-green-600 font-semibold">+185%</div>
+                     </div>
+                     <div className="text-center p-4 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">$NFLX</div>
+                        <div className="text-sm text-gray-600">Blue Ball</div>
+                        <div className="text-red-600 font-semibold">-12%</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div className="relative">
+               <img src="https://placehold.co/500x400/f97316/ffffff?text=Charlie+with+Nvidia+Ball" alt="Charlie with Nvidia tennis ball" className="rounded-2xl shadow-2xl" />
+               <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg">
+                  <div className="flex items-center">
+                     <Award className="h-6 w-6 text-yellow-500 mr-2" />
+                     <span className="font-bold text-gray-900">AI Chip Sector +185%</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   {/* Current Portfolio */}
+   <section className="py-16 bg-white px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+               <Users className="h-8 w-8 text-green-600 mr-3" />
+               <h2 className="text-4xl font-bold text-gray-900">Current Barkfolio Allocation</h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+               Charlie's current picks and their performance metrics
+            </p>
+         </div>
+
+         <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+               <thead className="bg-gradient-to-r from-orange-500 to-pink-500 text-white">
+                  <tr>
+                     <th className="px-6 py-4 text-left font-semibold">Stock</th>
+                     <th className="px-6 py-4 text-left font-semibold">Company</th>
+                     <th className="px-6 py-4 text-left font-semibold">Pick Date</th>
+                     <th className="px-6 py-4 text-left font-semibold">Performance</th>
+                     <th className="px-6 py-4 text-left font-semibold">Reason</th>
+                  </tr>
+               </thead>
+               <tbody className="divide-y divide-gray-200">
+                  {stockPicks.map((stock, index) => (
+                  <tr key={index} className="hover:bg-gray-50 transition-colors">
+                     <td className="px-6 py-4 font-bold text-lg">
+                        <span className="text-orange-600">{stock.symbol}</span>
+                     </td>
+                     <td className="px-6 py-4 text-gray-900 font-medium">{stock.name}</td>
+                     <td className="px-6 py-4 text-gray-600">{stock.pickDate}</td>
+                     <td className="px-6 py-4">
+                        <span className={`font-bold ${stock.performance> 0 ? 'text-green-600' : 'text-red-600'}`}>
+                           {stock.performance > 0 ? '+' : ''}{stock.performance}%
+                        </span>
+                     </td>
+                     <td className="px-6 py-4 text-gray-600 text-sm">{stock.reason}</td>
+                  </tr>
+                  ))}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </section>
+
+   {/* Portfolio Allocation Tips */}
+   <section className="py-16 bg-gradient-to-br from-blue-900 to-indigo-900 text-white px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+               <Clock className="h-8 w-8 text-orange-400 mr-3" />
+               <h2 className="text-4xl font-bold">Portfolio Allocation Tips for Pet Owners</h2>
+            </div>
+            <p className="text-xl text-blue-200 max-w-3xl mx-auto">
+               Learn how to harness your pet's natural instincts for investment success
+            </p>
+         </div>
+
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
+               <div className="text-3xl font-bold text-orange-400 mb-4">1</div>
+               <h3 className="text-xl font-bold mb-3">Observe Natural Behavior</h3>
+               <p className="text-blue-200">
+                  Pay attention to which objects your pet gravitates toward. Their choices often reflect market sentiment better than any analyst report.
+               </p>
+            </div>
+            <div className="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
+               <div className="text-3xl font-bold text-orange-400 mb-4">2</div>
+               <h3 className="text-xl font-bold mb-3">Create a Systematic Approach</h3>
+               <p className="text-blue-200">
+                  Develop a consistent routine for presenting investment options. Consistency is key to reliable results.
+               </p>
+            </div>
+            <div className="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
+               <div className="text-3xl font-bold text-orange-400 mb-4">3</div>
+               <h3 className="text-xl font-bold mb-3">Document Everything</h3>
+               <p className="text-blue-200">
+                  Keep detailed records of your pet's choices and their outcomes. Pattern recognition is crucial for long-term success.
+               </p>
+            </div>
+         </div>
+
+         <div className="mt-12 text-center">
+            <div className="inline-flex items-center bg-gradient-to-r from-orange-500 to-pink-500 px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all cursor-pointer">
+               Download Complete Barkvestment Guide
+            </div>
+         </div>
+      </div>
+   </section>
+
+   {/* Footer */}
+   <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+               <div className="flex items-center space-x-3 mb-4">
+                  <div className="bg-gradient-to-r from-orange-400 to-pink-500 p-2 rounded-full">
+                     <Dog className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="text-2xl font-bold">My Shih Tzu Beat the S&P</span>
+               </div>
+               <p className="text-gray-400 mb-4">
+                  Where canine instinct meets financial insight. Proving that sometimes the best investors have four legs and a wet nose.
+               </p>
+               <div className="flex space-x-4">
+                  <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer">
+                     <span className="text-sm font-bold">T</span>
+                  </div>
+                  <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer">
+                     <span className="text-sm font-bold">F</span>
+                  </div>
+                  <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer">
+                     <span className="text-sm font-bold">I</span>
+                  </div>
+               </div>
+            </div>
+            <div>
+               <h4 className="text-lg font-bold mb-4">Navigation</h4>
+               <ul className="space-y-2 text-gray-400">
+                  <li className="hover:text-white cursor-pointer">Home</li>
+                  <li className="hover:text-white cursor-pointer">Barkvestment Reports</li>
+                  <li className="hover:text-white cursor-pointer">Portfolio</li>
+                  <li className="hover:text-white cursor-pointer">Methodology</li>
+               </ul>
+            </div>
+            <div>
+               <h4 className="text-lg font-bold mb-4">Legal</h4>
+               <ul className="space-y-2 text-gray-400">
+                  <li className="hover:text-white cursor-pointer">Disclaimer</li>
+                  <li className="hover:text-white cursor-pointer">Privacy Policy</li>
+                  <li className="hover:text-white cursor-pointer">Terms of Service</li>
+               </ul>
+            </div>
+         </div>
+         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>© 2024 My Shih Tzu Beat the S&P. This is a parody site for entertainment purposes only. Not financial advice.</p>
+         </div>
+      </div>
+   </footer>
+</div>
+);
+};
+
+export default App;
